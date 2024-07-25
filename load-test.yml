@@ -1,0 +1,26 @@
+config:
+  target: 'http://localhost:3000' # URL of the server to test
+  phases:
+    - duration: 15
+      arrivalRate: 50
+      name: 'Arrival Rate 50 requests/sec'
+    - duration: 15
+      arrivalRate: 100
+      name: 'Arrival Rate 100 requests/sec'
+    - duration: 15
+      arrivalRate: 150
+      name: 'Arrival Rate 150 requests/sec'
+    - duration: 15
+      arrivalRate: 200
+      name: 'Arrival Rate 200 requests/sec'
+    - duration: 15
+      arrivalRate: 250
+      name: 'Arrival Rate 250 requests/sec'
+  http:
+    request:
+      headers:
+        Accept: 'text/html'
+scenarios:
+  - flow:
+      - get:
+          url: '/'
