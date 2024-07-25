@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            margin: 20px;
+        }
+        .vote-btn {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .results {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vote for Your Favorite Option</h1>
+        <button class="vote-btn" onclick="vote('option1')">Option 1</button>
+        <button class="vote-btn" onclick="vote('option2')">Option 2</button>
+        <button class="vote-btn" onclick="vote('option3')">Option 3</button>
+        <div class="results">
+            <p>Option 1: <span id="votes-option1">0</span></p>
+            <p>Option 2: <span id="votes-option2">0</span></p>
+            <p>Option 3: <span id="votes-option3">0</span></p>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        function vote(option) {
+            socket.emit('vote', option);
+        }
+
+        socket.on('updateVotes', (votes) => {
+            document.getElementById('votes-option1').innerText = votes.option1;
+            document.getElementById('votes-option2').innerText = votes.option2;
+            document.getElementById('votes-option3').innerText = votes.option3;
+        });
+    </script>
+</body>
+</html>
